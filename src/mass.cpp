@@ -8,6 +8,14 @@
 
 const int NUMBER_MASSES = 3;
 
+/*********************************************************
+Default constructor for Mass
+*********************************************************/
+Mass::Mass(){};
+
+/*********************************************************
+Constructor with all params for Mass
+*********************************************************/
 Mass::Mass(std::string name, double mass, std::array<double, 3> position, std::array<double, 3> velocity, std::array<double, 3> acceleration)
 {
     this->name = name;
@@ -17,6 +25,9 @@ Mass::Mass(std::string name, double mass, std::array<double, 3> position, std::a
     this->acceleration = acceleration;
 };
 
+/*********************************************************
+Getter and setter for position, velocity, and acceleration
+*********************************************************/
 std::array<double, 3> Mass::getPosition()
 {
     return this->position;
@@ -45,4 +56,28 @@ std::array<double, 3> Mass::getAcceleration()
 void Mass::setAcceleration(std::array<double, 3> acceleration)
 {
     this->acceleration = acceleration;
+};
+
+/*********************************************************
+ * Getter and setter for name and mass
+ * *******************************************************/
+
+std::string Mass::getName()
+{
+    return this->name;
+};
+
+void Mass::setName(std::string name)
+{
+    this->name = name;
+};
+
+double Mass::getMass()
+{
+    return this->mass;
+};
+
+void Mass::setMass(double mass)
+{
+    this->mass = mass;
 };

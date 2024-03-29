@@ -4,11 +4,11 @@
 #ifndef PHYSICS_HPP
 #define PHYSICS_HPP
 
-const double G = 6.67430e-11;
-
 class Mass
 {
 public:
+    Mass();
+
     Mass(std::string name, double mass, std::array<double, 3> position, std::array<double, 3> velocity, std::array<double, 3> acceleration);
 
     // Getter and setter for pos, vel, and acc
@@ -20,6 +20,13 @@ public:
 
     std::array<double, 3> getAcceleration();
     void setAcceleration(std::array<double, 3> acceleration);
+
+    // Getter and setter for name and mass
+    std::string getName();
+    void setName(std::string name);
+
+    double getMass();
+    void setMass(double mass);
 
 private:
     std::string name;
