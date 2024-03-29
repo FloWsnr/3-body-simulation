@@ -10,14 +10,15 @@ project(3_body_problem VERSION 0.1.0
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
+# define lib name as variable
+set(LIB_NAME n_body_system) # must be defined before the lower cmake files are run
+
 # compile the library
 add_subdirectory(src)
 
-
 # compile the application
 add_subdirectory(apps)
-
-
 
 enable_testing()
 # compile the tests

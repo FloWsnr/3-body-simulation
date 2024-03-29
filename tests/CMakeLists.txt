@@ -24,7 +24,7 @@ add_executable(
 
 target_link_libraries(
     tests PRIVATE # Private because we don't want to expose the test library to the users of our library
-    mass
+    ${LIB_NAME}
     GTest::gtest_main
 )
 include(GoogleTest)
