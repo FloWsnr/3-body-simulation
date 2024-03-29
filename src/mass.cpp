@@ -4,7 +4,7 @@
 #include <array>
 #include <iostream>
 
-#include "mass.hpp"
+#include "../include/mass.hpp"
 
 const int NUMBER_MASSES = 3;
 
