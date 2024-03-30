@@ -20,9 +20,9 @@ public:
     NBodySystem(std::array<Body, N> bodies);
 
     std::array<Body, N> getBodies();
-    double calcDistance(Body body1, Body body2);
-
-    double calcForce(Body mass1, Body mass2);
+    std::array<double, 3> calcDistanceVector(Body body1, Body body2);
+    double calcDistanceMagnitude(std::array<double, 3> distance_vector);
+    double calcAcceleration(Body body1, Body body2);
 
 private:
     std::array<Body, N> bodies;
@@ -45,36 +45,44 @@ std::array<Body, N> NBodySystem<N>::getBodies()
 }
 
 template <std::size_t N>
-double NBodySystem<N>::calcDistance(Body body1, Body body2)
+std::array<double, 3> NBodySystem<N>::calcDistanceVector(Body body1, Body body2)
 {
     // Calculate the Euklidean distance between two masses
     std::array<double, 3> pos1 = body1.getPosition();
     std::array<double, 3> pos2 = body2.getPosition();
 
-    double abs_distance = 0.0;
+    std::array<double, 3> distance_vector;
 
     for (int i = 0; i < 3; i++)
     {
-        abs_distance += std::pow(pos2[i] - pos1[i], 2.0);
+        distance_vector[i] = pos1[i] - pos2[i];
     }
-
-    abs_distance = std::sqrt(abs_distance);
-
-    return abs_distance;
+    return distance_vector;
 }
 
 template <std::size_t N>
-double NBodySystem<N>::calcForce(Body body1, Body body2)
+double NBodySystem<N>::calcDistanceMagnitude(std::array<double, 3> distance_vector)
 {
-    // Calculate the gravitational force between two masses
-    constexpr double G = 6.67430e-11; // Gravitational constant
-
-    double distance = calcDistance(body1, body1);
-
-    double force = G * body1.getMass() * body2.getMass() / std::pow(distance, 2.0);
-
-    return force;
+    double distance_magnitude = 0.0;
+    for (int i = 0; i < 3; i++)
+    {
+        distance_magnitude += distance_vector[i] * distance_vector[i];
+    }
+    return std::sqrt(distance_magnitude);
 }
+
+// template <std::size_t N>
+// double NBodySystem<N>::calcAcceleration(Body body1, Body body2)
+// {
+//     // Calculate the gravitational force between two masses
+//     constexpr double G = 6.67430e-11; // Gravitational constant
+
+//     double mass1 = body1.getMass();
+//     double mass2 = body2.getMass();
+//     std::array<double, 3> distance_vector = calcDistanceVector(body1, body2);
+
+//     return acceleration;
+//}
 
 /*******************************************************
  *******************************************************

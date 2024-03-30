@@ -27,14 +27,28 @@ TEST(NBodySystemTests, TestConstructor)
 
 TEST(NBodySystemTests, TestCalcDistance)
 {
-  Body body1 = Body();
-  Body body2 = Body();
+  Body body1 = Body("Body1", 1, {0, 0, 0}, {0, 0, 0}, {0, 0, 0});
+  Body body2 = Body("Body2", 1, {1, 1, 1}, {1, 1, 1}, {1, 1, 1});
 
   std::array<Body, 2> bodies = {body1, body2};
 
   NBodySystem<2> test_system = NBodySystem<2>(bodies);
 
-  double distance = test_system.calcDistance(body1, body2);
+  std::array<double, 3> distance = test_system.calcDistanceVector(body1, body2);
 
-  ASSERT_EQ(distance, 0);
+  for (int i = 0; i < 3; i++)
+  {
+    ASSERT_EQ(distance[i], -1);
+  }
+}
+
+TEST(NBodySystemTests, TestCalcDistanceMagnitude)
+{
+  std::array<double, 3> distance = {1, 1, 1};
+
+  NBodySystem<2> test_system = NBodySystem<2>({Body(), Body()});
+
+  double magnitude = test_system.calcDistanceMagnitude(distance);
+
+  ASSERT_EQ(magnitude, std::sqrt(3));
 }
