@@ -9,11 +9,6 @@
 const int NUMBER_MASSES = 3;
 
 /*********************************************************
-Default constructor for Mass
-*********************************************************/
-Mass::Mass(){};
-
-/*********************************************************
 Constructor with all params for Mass
 *********************************************************/
 Mass::Mass(std::string name, double mass, std::array<double, 3> position, std::array<double, 3> velocity, std::array<double, 3> acceleration)

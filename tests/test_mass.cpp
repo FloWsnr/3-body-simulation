@@ -2,20 +2,22 @@
 #include <gtest/gtest.h>
 #include "mass.hpp"
 
-TEST(MassTests, TestDefaultConstructor)
-{
-  Mass test_mass = Mass();
-}
-
 TEST(MassTests, TestConstructor)
 {
   std::string _name = "Test";
   double _mass = 1.0;
   std::array<double, 3> _position = {0.0, 0.0, 0.0};
   std::array<double, 3> _velocity = {0.0, 0.0, 0.0};
-  std::array<double, 3> _acceleration = {0.0, 0.0, 0.0};
+  std::array<double, 3> _acceleration = {3.0, 3.0, 3.0};
 
   Mass test_mass = Mass(_name, _mass, _position, _velocity, _acceleration);
+
+  std::array<double, 3> mass_acc = test_mass.getAcceleration();
+
+  for (int i = 0; i < 3; i++)
+  {
+    EXPECT_EQ(mass_acc[i], _acceleration[i]);
+  }
 }
 
 TEST(MassTests, GetterTest)
