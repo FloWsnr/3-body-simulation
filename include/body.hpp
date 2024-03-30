@@ -3,10 +3,10 @@
 #include <array>
 #include <string>
 
-class Mass
+class Body
 {
 public:
-    Mass(std::string name = "Mass",
+    Body(std::string name = "Body",
          double mass = 0.0,
          std::array<double, 3> position = {0.0, 0.0, 0.0},
          std::array<double, 3> velocity = {0.0, 0.0, 0.0},

@@ -1,40 +1,55 @@
 #pragma once // Include guard to only include the file once
 
 #include <array>
-#include "mass.hpp"
+#include "body.hpp"
+
+/*******************************************************
+ *******************************************************
+ * NBodySystem class
+ *******************************************************
+ ******************************************************/
+
+/****************************************
+ * NBodySystem class declaration
+ * **************************************/
 
 template <std::size_t N>
 class NBodySystem
 {
 public:
-    NBodySystem(std::array<Mass, N> masses);
+    NBodySystem(std::array<Body, N> bodies);
 
-    std::array<Mass, N> getMasses();
+    std::array<Body, N> getBodies();
+    double calcDistance(Body body1, Body body2);
 
-    double calcDistance(Mass mass1, Mass mass2);
+    double calcForce(Body mass1, Body mass2);
 
 private:
-    std::array<Mass, N> masses;
+    std::array<Body, N> bodies;
 };
 
+/****************************************
+ * NBodySystem class implementation
+ * **************************************/
+
 template <std::size_t N>
-NBodySystem<N>::NBodySystem(std::array<Mass, N> masses)
+NBodySystem<N>::NBodySystem(std::array<Body, N> bodies)
 {
-    this->masses = masses;
+    this->bodies = bodies;
 }
 
 template <std::size_t N>
-std::array<Mass, N> NBodySystem<N>::getMasses()
+std::array<Body, N> NBodySystem<N>::getBodies()
 {
-    return masses;
+    return bodies;
 }
 
 template <std::size_t N>
-double NBodySystem<N>::calcDistance(Mass mass1, Mass mass2)
+double NBodySystem<N>::calcDistance(Body body1, Body body2)
 {
     // Calculate the Euklidean distance between two masses
-    std::array<double, 3> pos1 = mass1.getPosition();
-    std::array<double, 3> pos2 = mass2.getPosition();
+    std::array<double, 3> pos1 = body1.getPosition();
+    std::array<double, 3> pos2 = body2.getPosition();
 
     double abs_distance = 0.0;
 
@@ -48,10 +63,24 @@ double NBodySystem<N>::calcDistance(Mass mass1, Mass mass2)
     return abs_distance;
 }
 
+template <std::size_t N>
+double NBodySystem<N>::calcForce(Body body1, Body body2)
+{
+    // Calculate the gravitational force between two masses
+    constexpr double G = 6.67430e-11; // Gravitational constant
 
-/****************************************
+    double distance = calcDistance(body1, body1);
+
+    double force = G * body1.getMass() * body2.getMass() / std::pow(distance, 2.0);
+
+    return force;
+}
+
+/*******************************************************
+ *******************************************************
  * Simulation class
- ****************************************/
+ *******************************************************
+ ******************************************************/
 
 template <std::size_t N>
 class Simulation

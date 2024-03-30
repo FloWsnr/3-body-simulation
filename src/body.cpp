@@ -4,14 +4,14 @@
 #include <array>
 #include <iostream>
 
-#include "mass.hpp"
+#include "body.hpp"
 
 const int NUMBER_MASSES = 3;
 
 /*********************************************************
-Constructor with all params for Mass
+Constructor with all params for Body
 *********************************************************/
-Mass::Mass(std::string name, double mass, std::array<double, 3> position, std::array<double, 3> velocity, std::array<double, 3> acceleration)
+Body::Body(std::string name, double mass, std::array<double, 3> position, std::array<double, 3> velocity, std::array<double, 3> acceleration)
 {
     this->name = name;
     this->mass = mass;
@@ -23,32 +23,32 @@ Mass::Mass(std::string name, double mass, std::array<double, 3> position, std::a
 /*********************************************************
 Getter and setter for position, velocity, and acceleration
 *********************************************************/
-std::array<double, 3> Mass::getPosition()
+std::array<double, 3> Body::getPosition()
 {
     return this->position;
 };
 
-void Mass::setPosition(std::array<double, 3> position)
+void Body::setPosition(std::array<double, 3> position)
 {
     this->position = position;
 };
 
-std::array<double, 3> Mass::getVelocity()
+std::array<double, 3> Body::getVelocity()
 {
     return this->velocity;
 };
 
-void Mass::setVelocity(std::array<double, 3> velocity)
+void Body::setVelocity(std::array<double, 3> velocity)
 {
     this->velocity = velocity;
 };
 
-std::array<double, 3> Mass::getAcceleration()
+std::array<double, 3> Body::getAcceleration()
 {
     return this->acceleration;
 };
 
-void Mass::setAcceleration(std::array<double, 3> acceleration)
+void Body::setAcceleration(std::array<double, 3> acceleration)
 {
     this->acceleration = acceleration;
 };
@@ -57,22 +57,22 @@ void Mass::setAcceleration(std::array<double, 3> acceleration)
  * Getter and setter for name and mass
  * *******************************************************/
 
-std::string Mass::getName()
+std::string Body::getName()
 {
     return this->name;
 };
 
-void Mass::setName(std::string name)
+void Body::setName(std::string name)
 {
     this->name = name;
 };
 
-double Mass::getMass()
+double Body::getMass()
 {
     return this->mass;
 };
 
-void Mass::setMass(double mass)
+void Body::setMass(double mass)
 {
     this->mass = mass;
 };
