@@ -18,7 +18,7 @@ TEST(MassTests, TestConstructor)
   {
     EXPECT_EQ(mass_acc[i], _acceleration[i]);
   }
-}
+};
 
 TEST(MassTests, GetterTest)
 {
@@ -54,4 +54,4 @@ TEST(MassTests, SetterTest)
   std::array<double, 3> new_acc = {1.0, 1.0, 1.0};
 
   test_mass.setPosition(new_pos);
-}
+};
