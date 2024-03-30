@@ -19,6 +19,7 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(
     tests
+    test_n_body_system.cpp
     test_mass.cpp
 )
 
