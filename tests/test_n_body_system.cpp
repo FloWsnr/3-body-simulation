@@ -52,3 +52,15 @@ TEST(NBodySystemTests, TestCalcDistanceMagnitude)
 
   ASSERT_EQ(magnitude, std::sqrt(3));
 }
+
+TEST(NBodySystemTests, TestAcceleration)
+{
+  Body body1 = Body("Body1", 1, {0, 0, 0}, {0, 0, 0}, {0, 0, 0});
+  Body body2 = Body("Body2", 1, {1, 1, 1}, {1, 1, 1}, {1, 1, 1});
+
+  std::array<Body, 2> bodies = {body1, body2};
+
+  NBodySystem<2> test_system = NBodySystem<2>(bodies);
+
+  std::array<double, 3> acceleration = test_system.calcAcceleration(body1, body2);
+}
