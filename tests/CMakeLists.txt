@@ -21,6 +21,7 @@ add_executable(
     tests
     test_n_body_system.cpp
     test_body.cpp
+    test_simulation.cpp
 )
 
 target_link_libraries(

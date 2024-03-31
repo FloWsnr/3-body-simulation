@@ -92,23 +92,3 @@ std::array<double, 3> NBodySystem<N>::calcAcceleration(Body body1, Body body2)
 
     return acceleration;
 }
-
-/*******************************************************
- *******************************************************
- * Simulation class
- *******************************************************
- ******************************************************/
-
-template <std::size_t N>
-class Simulation
-{
-public:
-    Simulation();
-    Simulation(NBodySystem<N> n_body_system);
-
-    void simulate();
-
-private:
-    NBodySystem<N> n_body_system;
-    double time = 0.0;
-};
