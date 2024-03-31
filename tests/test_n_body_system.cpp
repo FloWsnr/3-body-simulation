@@ -27,8 +27,8 @@ TEST(NBodySystemTests, TestConstructor)
 
 TEST(NBodySystemTests, TestCalcDistance)
 {
-  Body body1 = Body("Body1", 1, {0, 0, 0}, {0, 0, 0}, {0, 0, 0});
-  Body body2 = Body("Body2", 1, {1, 1, 1}, {1, 1, 1}, {1, 1, 1});
+  Body body1 = Body("Body1", 1, {0, 0, 0}, {0, 0, 0});
+  Body body2 = Body("Body2", 1, {1, 1, 1}, {1, 1, 1});
 
   std::array<Body, 2> bodies = {body1, body2};
 
@@ -55,8 +55,8 @@ TEST(NBodySystemTests, TestCalcDistanceMagnitude)
 
 TEST(NBodySystemTests, TestAcceleration)
 {
-  Body body1 = Body("Body1", 1, {0, 0, 0}, {0, 0, 0}, {0, 0, 0});
-  Body body2 = Body("Body2", 1, {1, 1, 1}, {1, 1, 1}, {1, 1, 1});
+  Body body1 = Body("Body1", 1, {0, 0, 0}, {0, 0, 0});
+  Body body2 = Body("Body2", 1, {1, 1, 1}, {1, 1, 1});
 
   std::array<Body, 2> bodies = {body1, body2};
 

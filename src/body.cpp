@@ -11,13 +11,12 @@ const int NUMBER_MASSES = 3;
 /*********************************************************
 Constructor with all params for Body
 *********************************************************/
-Body::Body(std::string name, double mass, std::array<double, 3> position, std::array<double, 3> velocity, std::array<double, 3> acceleration)
+Body::Body(std::string name, double mass, std::array<double, 3> position, std::array<double, 3> velocity)
 {
     this->name = name;
     this->mass = mass;
     this->position = position;
     this->velocity = velocity;
-    this->acceleration = acceleration;
 };
 
 /*********************************************************
@@ -41,16 +40,6 @@ std::array<double, 3> Body::getVelocity()
 void Body::setVelocity(std::array<double, 3> velocity)
 {
     this->velocity = velocity;
-};
-
-std::array<double, 3> Body::getAcceleration()
-{
-    return this->acceleration;
-};
-
-void Body::setAcceleration(std::array<double, 3> acceleration)
-{
-    this->acceleration = acceleration;
 };
 
 /*********************************************************
