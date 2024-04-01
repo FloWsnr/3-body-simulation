@@ -12,7 +12,7 @@ TEST(SimulationTests, TestConstructor)
   NBodySystem<3> n_body_system = NBodySystem<3>(bodies);
   Simulation<3> test_simulation = Simulation<3>(n_body_system, 1.0);
 
-  ASSERT_EQ(test_simulation.getTime(), 1.0);
+  EXPECT_EQ(test_simulation.getTime(), 1.0);
 }
 
 TEST(SimulationTests, TestSimulateTimestep)

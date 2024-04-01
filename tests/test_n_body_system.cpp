@@ -20,7 +20,7 @@ TEST(NBodySystemTests, TestConstructor)
 
     for (int j = 0; j < 3; j++)
     {
-      ASSERT_EQ(pos[j], pos_out[j]);
+      EXPECT_EQ(pos[j], pos_out[j]);
     }
   }
 }
@@ -38,7 +38,7 @@ TEST(NBodySystemTests, TestCalcDistance)
 
   for (int i = 0; i < 3; i++)
   {
-    ASSERT_EQ(distance[i], -1);
+    EXPECT_EQ(distance[i], -1);
   }
 }
 
@@ -50,7 +50,7 @@ TEST(NBodySystemTests, TestCalcDistanceMagnitude)
 
   double magnitude = test_system.calcDistanceMagnitude(distance);
 
-  ASSERT_EQ(magnitude, std::sqrt(3));
+  EXPECT_EQ(magnitude, std::sqrt(3));
 }
 
 TEST(NBodySystemTests, TestAcceleration)
@@ -63,4 +63,9 @@ TEST(NBodySystemTests, TestAcceleration)
   NBodySystem<2> test_system = NBodySystem<2>(bodies);
 
   std::array<double, 3> acceleration = test_system.calcAcceleration(body1, body2);
+
+  for (int i = 0; i < 3; i++)
+  {
+    EXPECT_NE(acceleration[i], 1);
+  }
 }
