@@ -47,15 +47,11 @@ std::array<Body, N> NBodySystem<N>::getBodies()
 template <std::size_t N>
 std::array<double, 3> NBodySystem<N>::calcDistanceVector(Body body1, Body body2)
 {
-    // Calculate the Euklidean distance between two masses
-    std::array<double, 3> pos1 = body1.getPosition();
-    std::array<double, 3> pos2 = body2.getPosition();
-
     std::array<double, 3> distance_vector;
 
     for (int i = 0; i < 3; i++)
     {
-        distance_vector[i] = pos1[i] - pos2[i];
+        distance_vector[i] = body1.position[i] - body2.position[i];
     }
     return distance_vector;
 }
@@ -78,8 +74,8 @@ std::array<double, 3> NBodySystem<N>::calcAcceleration(Body body1, Body body2)
 
     // Calculate the gravitational force between two masses
     constexpr double G = 6.67430e-11; // Gravitational constant
-    double mass1 = body1.getMass();
-    double mass2 = body2.getMass();
+    double mass1 = body1.mass;
+    double mass2 = body2.mass;
 
     std::array<double, 3> distance_vector = calcDistanceVector(body1, body2);
     double distance_magnitude = calcDistanceMagnitude(distance_vector);

@@ -71,24 +71,24 @@ void Simulation<N>::simulate_timestep(double dt)
         }
 
         // Calculate the new velocity of body i
-        std::array<double, 3> velocity = bodies[i].getVelocity();
+        std::array<double, 3> velocity = bodies[i].velocity;
         for (int k = 0; k < 3; k++)
         {
             velocity[k] += total_acceleration[k] * dt;
         }
-        bodies[i].setVelocity(velocity);
+        bodies[i].velocity = velocity;
     }
 
     // Update the position of the bodies
     for (int i = 0; i < N; i++)
     {
-        std::array<double, 3> position = bodies[i].getPosition();
-        std::array<double, 3> velocity = bodies[i].getVelocity();
+        std::array<double, 3> position = bodies[i].position;
+        std::array<double, 3> velocity = bodies[i].velocity;
         for (int k = 0; k < 3; k++)
         {
             position[k] += velocity[k] * dt;
         }
-        bodies[i].setPosition(position);
+        bodies[i].position = position;
     }
 }
 
