@@ -10,13 +10,13 @@ TEST(NBodySystemTests, TestConstructor)
   std::array<Body, 3> bodies = {Body{}, Body{}, Body{}};
   NBodySystem<3> test_system = NBodySystem<3>(bodies);
 
-  std::array<Body, 3> bodies_out = test_system.getBodies();
+  const std::array<Body, 3> &bodies_out = test_system.getBodies();
 
   // Test if the bodies are the same (not same object, but same values)
   for (int i = 0; i < 3; i++)
   {
-    std::array<double, 3> pos = bodies[i].position;
-    std::array<double, 3> pos_out = bodies_out[i].position;
+    const std::array<double, 3> &pos = bodies[i].position;
+    const std::array<double, 3> &pos_out = bodies_out[i].position;
 
     for (int j = 0; j < 3; j++)
     {

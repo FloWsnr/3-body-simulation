@@ -15,7 +15,7 @@ template <std::size_t N>
 class Simulation
 {
 public:
-    Simulation(NBodySystem<N> n_body_system, double time = 0.0);
+    Simulation(NBodySystem<N> n_body_system);
 
     void simulate_timestep(double dt);
     void simulate(double dt, double end_time);
@@ -24,7 +24,7 @@ public:
 
 private:
     NBodySystem<N> n_body_system;
-    double time = 0.0;
+    double current_time = 0.0;
 };
 
 /****************************************
@@ -32,27 +32,26 @@ private:
  * **************************************/
 
 template <std::size_t N>
-Simulation<N>::Simulation(NBodySystem<N> n_body_system, double time)
-    : n_body_system(n_body_system), time(time)
+Simulation<N>::Simulation(NBodySystem<N> n_body_system)
+    : n_body_system(n_body_system)
 {
 }
 
 template <std::size_t N>
 double Simulation<N>::getTime()
 {
-    return time;
+    return current_time;
 }
 
 template <std::size_t N>
 void Simulation<N>::simulate_timestep(double dt)
 {
     // Simulate the movement of the bodies
-    std::array<Body, N> bodies = n_body_system.getBodies();
+    const std::array<Body, N> &bodies = n_body_system.getBodies();
 
     // iterate over all bodies
     for (int i = 0; i < N; i++)
     {
-        std::array<double, 3> total_velocity = {0, 0, 0};
         std::array<double, 3> total_acceleration = {0, 0, 0};
 
         // iterate over all other bodies
@@ -71,33 +70,33 @@ void Simulation<N>::simulate_timestep(double dt)
         }
 
         // Calculate the new velocity of body i
-        std::array<double, 3> velocity = bodies[i].velocity;
+        std::array<double, 3> velocity = n_body_system.getVelocityOfBody(i);
         for (int k = 0; k < 3; k++)
         {
             velocity[k] += total_acceleration[k] * dt;
         }
-        bodies[i].velocity = velocity;
+        n_body_system.setVelocityOfBody(i, velocity);
     }
 
     // Update the position of the bodies
     for (int i = 0; i < N; i++)
     {
-        std::array<double, 3> position = bodies[i].position;
-        std::array<double, 3> velocity = bodies[i].velocity;
+        std::array<double, 3> position = n_body_system.getPositionOfBody(i);
+        std::array<double, 3> velocity = n_body_system.getVelocityOfBody(i);
         for (int k = 0; k < 3; k++)
         {
             position[k] += velocity[k] * dt;
         }
-        bodies[i].position = position;
+        n_body_system.setPositionOfBody(i, position);
     }
 }
 
 template <std::size_t N>
 void Simulation<N>::simulate(double dt, double end_time)
 {
-    while (time < end_time)
+    while (current_time <= end_time)
     {
         simulate_timestep(dt);
-        time += dt;
+        current_time += dt;
     }
 }
