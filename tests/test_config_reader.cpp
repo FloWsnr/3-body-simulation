@@ -12,3 +12,13 @@ TEST(ConfigReaderTests, TestGetData)
     nlohmann::json data = reader.getData();
     EXPECT_EQ(data.at("Bodies").at("Body1").at("Name"), "Mercury");
 }
+
+TEST(ConfigReaderTests, TestGetBodies)
+{
+    // This is bad practice, since the directory is hardcoded
+    std::string file_path = "/home/flwi/Coding/3-body-simulation/tests/test_config.json";
+    ConfigReader reader(file_path);
+    std::vector<Body> bodies = reader.getBodies();
+    EXPECT_EQ(bodies.size(), 1);
+    EXPECT_EQ(bodies[0].name, "Mercury");
+}

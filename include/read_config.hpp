@@ -3,11 +3,16 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
+#include "body.hpp"
+
 class ConfigReader
 {
 public:
     ConfigReader(const std::string &file_path);
-    nlohmann::json getData();
+    const nlohmann::json &getData();
+    // Setter not needed, since the data is read-only
+
+    std::vector<Body> getBodies();
 
 private:
     std::fstream file;
