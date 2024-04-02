@@ -22,6 +22,7 @@ add_executable(
     test_n_body_system.cpp
     test_body.cpp
     test_simulation.cpp
+    test_config_reader.cpp
 )
 
 target_link_libraries(
