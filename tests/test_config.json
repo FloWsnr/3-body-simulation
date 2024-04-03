@@ -1,4 +1,8 @@
 {
+  "Simulation": {
+    "Timestep": 1,
+    "Duration": 1000
+  },
   "Bodies": {
     "Body1": {
       "Name": "Mercury",

@@ -22,3 +22,21 @@ TEST(ConfigReaderTests, TestGetBodies)
     EXPECT_EQ(bodies.size(), 1);
     EXPECT_EQ(bodies[0].name, "Mercury");
 }
+
+TEST(ConfigReaderTests, TestGetDuration)
+{
+    // This is bad practice, since the directory is hardcoded
+    std::string file_path = "/home/flwi/Coding/3-body-simulation/tests/test_config.json";
+    ConfigReader reader(file_path);
+    double duration = reader.getDuration();
+    EXPECT_EQ(duration, 1000);
+}
+
+TEST(ConfigReaderTests, TestGetTimestep)
+{
+    // This is bad practice, since the directory is hardcoded
+    std::string file_path = "/home/flwi/Coding/3-body-simulation/tests/test_config.json";
+    ConfigReader reader(file_path);
+    double timestep = reader.getTimestep();
+    EXPECT_EQ(timestep, 1);
+}
