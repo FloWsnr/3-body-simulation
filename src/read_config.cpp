@@ -1,14 +1,15 @@
 #include <fstream>
+#include <vector>
 #include <nlohmann/json.hpp>
 
 #include "read_config.hpp"
-ConfigReader::ConfigReader(const std::string &file_path)
+ConfigReader::ConfigReader(const std::string& file_path)
 {
     std::ifstream file(file_path);
     this->data = nlohmann::json::parse(file);
 }
 
-const nlohmann::json &ConfigReader::getData()
+const nlohmann::json& ConfigReader::getData()
 {
     return this->data;
 }
@@ -16,10 +17,21 @@ const nlohmann::json &ConfigReader::getData()
 std::vector<Body> ConfigReader::getBodies()
 {
     std::vector<Body> bodies;
-    for (auto &body : this->data.at("Bodies"))
+
+    for (const auto& body : this->data.at("Bodies"))
     {
         Body new_body(body.at("Name"), body.at("Mass"), body.at("Pos"), body.at("Vel"));
         bodies.push_back(new_body);
     }
     return bodies;
+}
+
+double ConfigReader::getTimestep()
+{
+    return this->data.at("Simulation").at("Timestep");
+}
+
+double ConfigReader::getDuration()
+{
+    return this->data.at("Simulation").at("Duration");
 }
