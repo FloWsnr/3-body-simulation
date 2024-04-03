@@ -8,31 +8,31 @@
 
 TEST(SimulationTests, TestConstructor)
 {
-  std::array<Body, 3> bodies = {Body{}, Body{}, Body{}};
-  NBodySystem<3> n_body_system = NBodySystem<3>(bodies);
-  Simulation<3> test_simulation = Simulation<3>(n_body_system);
+  std::vector<Body> bodies = { Body{}, Body{}, Body{} };
+  NBodySystem n_body_system = NBodySystem(bodies);
+  Simulation test_simulation = Simulation(n_body_system);
 
   EXPECT_EQ(test_simulation.getTime(), 0);
 }
 
 TEST(SimulationTests, TestSimulateTimestep)
 {
-  std::array<Body, 3> bodies = {Body{"Body1", 1, {0, 0, 0}, {0, 0, 0}},
+  std::vector<Body> bodies = { Body{"Body1", 1, {0, 0, 0}, {0, 0, 0}},
                                 Body{"Body2", 1, {1, 1, 1}, {1, 1, 1}},
-                                Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}}};
-  NBodySystem<3> n_body_system = NBodySystem<3>(bodies);
-  Simulation<3> test_simulation = Simulation<3>(n_body_system);
+                                Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}} };
+  NBodySystem n_body_system = NBodySystem(bodies);
+  Simulation test_simulation = Simulation(n_body_system);
 
   test_simulation.simulate_timestep(1.0);
 }
 
 TEST(SimulationTests, TestSimulate)
 {
-  std::array<Body, 3> bodies = {Body{"Body1", 1, {0, 0, 0}, {0, 0, 0}},
+  std::vector<Body> bodies = { Body{"Body1", 1, {0, 0, 0}, {0, 0, 0}},
                                 Body{"Body2", 1, {1, 1, 1}, {1, 1, 1}},
-                                Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}}};
-  NBodySystem<3> n_body_system = NBodySystem<3>(bodies);
-  Simulation<3> test_simulation = Simulation<3>(n_body_system);
+                                Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}} };
+  NBodySystem n_body_system = NBodySystem(bodies);
+  Simulation test_simulation = Simulation(n_body_system);
 
   test_simulation.simulate(1.0, 100.0);
 }

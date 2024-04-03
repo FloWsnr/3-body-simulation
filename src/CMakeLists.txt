@@ -1,4 +1,4 @@
-add_library(${LIB_NAME} lib.cpp read_config.cpp)
+add_library(${LIB_NAME} n_body_system.cpp simulation.cpp read_config.cpp)
 target_include_directories(${LIB_NAME} PUBLIC ../include)
 target_compile_features(${LIB_NAME} PUBLIC cxx_std_23)
 
