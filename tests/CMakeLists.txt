@@ -23,6 +23,7 @@ add_executable(
     test_body.cpp
     test_simulation.cpp
     test_config_reader.cpp
+    test_com_parser.cpp
 )
 
 target_link_libraries(
