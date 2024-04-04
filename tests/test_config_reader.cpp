@@ -40,3 +40,12 @@ TEST(ConfigReaderTests, TestGetTimestep)
     double timestep = reader.getTimestep();
     EXPECT_EQ(timestep, 1);
 }
+
+TEST(ConfigReaderTests, TestGetLogFile)
+{
+    // This is bad practice, since the directory is hardcoded
+    std::string file_path = "/home/flwi/Coding/3-body-simulation/tests/test_config.json";
+    ConfigReader reader(file_path);
+    std::string log_file = reader.getLogFile();
+    EXPECT_EQ(log_file, "log.txt");
+}

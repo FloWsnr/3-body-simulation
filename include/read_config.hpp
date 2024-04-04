@@ -14,6 +14,7 @@ public:
     // Setter not needed, since the data is read-only
 
     std::vector<Body> getBodies();
+    std::string getLogFile();
     double getTimestep();
     double getDuration();
 

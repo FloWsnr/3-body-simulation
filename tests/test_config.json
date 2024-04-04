@@ -1,4 +1,7 @@
 {
+  "Logging": {
+    "File": "log.txt"
+  },
   "Simulation": {
     "Timestep": 1,
     "Duration": 1000

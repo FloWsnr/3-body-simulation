@@ -26,6 +26,11 @@ std::vector<Body> ConfigReader::getBodies()
     return bodies;
 }
 
+std::string ConfigReader::getLogFile()
+{
+    return this->data.at("Logging").at("File");
+}
+
 double ConfigReader::getTimestep()
 {
     return this->data.at("Simulation").at("Timestep");
