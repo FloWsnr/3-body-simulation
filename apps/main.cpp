@@ -14,25 +14,27 @@ int main(int argc, char* argv[])
     ComParser com_parser(argc, argv);
     Arguments arguments = com_parser.parse();
 
+    // Read config file
+    ConfigReader config(arguments.config_path);
+
     // Create logger
-    Logger logger = Logger(arguments.verbose);
+    const std::string log_file = config.getLogFile();
+    Logger logger = Logger(log_file, arguments.verbose);
+
+    std::vector<Body> bodies = config.getBodies();
+    NBodySystem n_body_system(bodies);
+    logger.logNBodySystem(n_body_system, 1);
 
     logger.logMessage("Starting N body simulation", 0);
     logger.logMessage("--------------------------", 0);
 
-    ConfigReader config(arguments.config_path);
-    std::vector<Body> bodies = config.getBodies();
-    NBodySystem n_body_system(bodies);
-    Simulation sim(bodies);
+    Simulation sim(n_body_system, logger);
 
     double duration = config.getDuration();
     double timestep = config.getTimestep();
 
     logger.logMessage("Start simulation:", 0);
-    logger.logMessage("  Duration: " + std::to_string(duration), 0);
-    logger.logMessage("  Timestep: " + std::to_string(timestep), 0);
-
-    sim.simulate(duration, timestep);
+    sim.simulate(timestep, duration);
 
     logger.logMessage("Simulation complete", 0);
     return 0;
