@@ -9,7 +9,12 @@
  * Simulation class implementation
  * **************************************/
 Simulation::Simulation(NBodySystem n_body_system)
-    : n_body_system(n_body_system)
+    : n_body_system(n_body_system), logger(Logger())
+{
+}
+
+Simulation::Simulation(NBodySystem n_body_system, const Logger& logger)
+    : n_body_system(n_body_system), logger(logger)
 {
 }
 

@@ -1,5 +1,6 @@
 #include <array>
 #include <cmath>
+#include <filesystem>
 #include <gtest/gtest.h>
 
 #include "body.hpp"
@@ -14,6 +15,20 @@ TEST(SimulationTests, TestConstructor)
 
   EXPECT_EQ(test_simulation.getTime(), 0);
 }
+
+TEST(SimuationTests, TestConstructorWithLogger)
+{
+  std::string file_path = std::filesystem::temp_directory_path().string() + "/test_log.txt";
+  Logger logger = Logger(file_path, false);
+
+  std::vector<Body> bodies = { Body{}, Body{}, Body{} };
+  NBodySystem n_body_system = NBodySystem(bodies);
+  Simulation test_simulation = Simulation(n_body_system, logger);
+
+  // TODO: comparing pointers is bad practice, implement operator== for Logger
+  EXPECT_EQ(&logger, &test_simulation.logger);
+}
+
 
 TEST(SimulationTests, TestSimulateTimestep)
 {
