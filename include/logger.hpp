@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -10,6 +10,7 @@ class Logger
 {
 public:
     Logger(bool verbose = false);
+    Logger(std::string file = "", bool verbose = false);
 
     void logMessage(const std::string& message, int level = 0);
     void logBody(const Body& body, int level = 0);
@@ -19,4 +20,5 @@ public:
     void logArray(const T& array);
 private:
     bool verbose{ false };
+    std::ofstream output_stream{ "log.txt" };
 };

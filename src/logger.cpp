@@ -10,20 +10,31 @@ Logger::Logger(bool verbose)
 {
 }
 
+Logger::Logger(std::string file, bool verbose)
+    : verbose{ verbose }
+{
+    output_stream.open(file);
+    if (!output_stream.is_open())
+    {
+        std::cerr << "Failed to open file: " << file << std::endl;
+    }
+}
+
+
 void Logger::logMessage(const std::string& message, int level)
 {
     std::string indent{ std::string(level, ' ') };
-    std::cout << indent << message << std::endl;
+    this->output_stream << indent << message << "\n";
 }
 
 void Logger::logBody(const Body& body, int level)
 {
     std::string indent{ std::string(level, ' ') };
-    std::cout << indent << "Body: " << body.name << std::endl;
-    std::cout << indent << "  Mass: " << body.mass << std::endl;
-    std::cout << indent << "  Position: ";
+    this->output_stream << indent << "Body: " << body.name << "\n";
+    this->output_stream << indent << "  Mass: " << body.mass << "\n";
+    this->output_stream << indent << "  Position: ";
     logArray(body.position);
-    std::cout << indent << "  Velocity: ";
+    this->output_stream << indent << "  Velocity: ";
     logArray(body.velocity);
 }
 
@@ -31,16 +42,27 @@ void Logger::logBody(const Body& body, int level)
 template <typename T>
 void Logger::logArray(const T& array)
 {
-    std::cout << "[";
+    this->output_stream << "[";
     for (auto& element : array)
     {
-        std::cout << element;
+        this->output_stream << element;
 
         // Print comma if not last element
         if (&element != &array.back())
         {
-            std::cout << ", ";
+            this->output_stream << ", ";
         }
     }
-    std::cout << "]" << std::endl;
+    this->output_stream << "]" << "\n";
+}
+
+
+void Logger::logNBodySystem(const NBodySystem& n_body_system, int level)
+{
+    std::string indent{ std::string(level, ' ') };
+    const std::vector<Body>& bodies = n_body_system.getBodies();
+    for (const auto& body : bodies)
+    {
+        logBody(body, level + 1);
+    }
 }
