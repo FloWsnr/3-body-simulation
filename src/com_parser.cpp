@@ -1,3 +1,4 @@
+#include <string>
 #include <iostream>
 #include "com_parser.hpp"
 
@@ -32,7 +33,6 @@ Arguments ComParser::parse()
 
     // Check for config file
     this->parseConfigPath();
-
     return this->arguments;
 }
 
