@@ -22,13 +22,13 @@ Logger::Logger(const std::string& file, bool verbose)
     outputStream = fileStream.get();
 }
 
-void Logger::logMessage(const std::string& message, int level)
+void Logger::logMessage(const std::string& message, int level) const
 {
     std::string indent{ std::string(level, ' ') };
     *outputStream << indent << message << "\n";
 }
 
-void Logger::logBody(const Body& body, int level)
+void Logger::logBody(const Body& body, int level) const
 {
     std::string indent{ std::string(level, ' ') };
 
@@ -43,7 +43,7 @@ void Logger::logBody(const Body& body, int level)
 
 
 template <typename T>
-void Logger::logArray(const T& array)
+void Logger::logArray(const T& array) const
 {
     *outputStream << "[";
     for (auto& element : array)
@@ -60,7 +60,7 @@ void Logger::logArray(const T& array)
 }
 
 
-void Logger::logNBodySystem(const NBodySystem& n_body_system, int level)
+void Logger::logNBodySystem(const NBodySystem& n_body_system, int level) const
 {
     std::string indent{ std::string(level, ' ') };
     const std::vector<Body>& bodies = n_body_system.getBodies();
