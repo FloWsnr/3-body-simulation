@@ -1,7 +1,8 @@
 #pragma once
+#include <iostream>
 #include <fstream>
+#include <memory>
 #include <string>
-#include <vector>
 
 #include "body.hpp"
 #include "n_body_system.hpp"
@@ -10,7 +11,7 @@ class Logger
 {
 public:
     Logger(bool verbose = false);
-    Logger(std::string file = "", bool verbose = false);
+    Logger(const std::string& file, bool verbose = false);
 
     void logMessage(const std::string& message, int level = 0);
     void logBody(const Body& body, int level = 0);
@@ -20,5 +21,10 @@ public:
     void logArray(const T& array);
 private:
     bool verbose{ false };
-    std::ofstream output_stream{ "log.txt" };
+
+    // Pointer to output stream, no ownership since std::cout is not owned
+    std::ostream* outputStream;
+
+    // Unique pointer to file stream, ownership since file stream is owned
+    std::unique_ptr<std::ofstream> fileStream;
 };

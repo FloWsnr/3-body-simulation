@@ -8,33 +8,36 @@
 Logger::Logger(bool verbose)
     : verbose{ verbose }
 {
+    // pointer points at std::cout
+    outputStream = &std::cout;
 }
 
-Logger::Logger(std::string file, bool verbose)
+Logger::Logger(const std::string& file, bool verbose)
     : verbose{ verbose }
 {
-    output_stream.open(file);
-    if (!output_stream.is_open())
-    {
-        std::cerr << "Failed to open file: " << file << std::endl;
-    }
-}
 
+    fileStream = std::make_unique<std::ofstream>(file);
+
+    // pointer points at file stream
+    outputStream = fileStream.get();
+}
 
 void Logger::logMessage(const std::string& message, int level)
 {
     std::string indent{ std::string(level, ' ') };
-    this->output_stream << indent << message << "\n";
+    *outputStream << indent << message << "\n";
 }
 
 void Logger::logBody(const Body& body, int level)
 {
     std::string indent{ std::string(level, ' ') };
-    this->output_stream << indent << "Body: " << body.name << "\n";
-    this->output_stream << indent << "  Mass: " << body.mass << "\n";
-    this->output_stream << indent << "  Position: ";
+
+
+    *outputStream << indent << "Body: " << body.name << "\n";
+    *outputStream << indent << "  Mass: " << body.mass << "\n";
+    *outputStream << indent << "  Position: ";
     logArray(body.position);
-    this->output_stream << indent << "  Velocity: ";
+    *outputStream << indent << "  Velocity: ";
     logArray(body.velocity);
 }
 
@@ -42,18 +45,18 @@ void Logger::logBody(const Body& body, int level)
 template <typename T>
 void Logger::logArray(const T& array)
 {
-    this->output_stream << "[";
+    *outputStream << "[";
     for (auto& element : array)
     {
-        this->output_stream << element;
+        *outputStream << element;
 
         // Print comma if not last element
         if (&element != &array.back())
         {
-            this->output_stream << ", ";
+            *outputStream << ", ";
         }
     }
-    this->output_stream << "]" << "\n";
+    *outputStream << "]" << "\n";
 }
 
 
