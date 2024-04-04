@@ -18,7 +18,7 @@ public:
     void simulate_timestep(double dt);
     void simulate(double dt, double end_time);
 
-    double getTime();
+    const double& getTime() const;
 
 private:
     NBodySystem n_body_system;

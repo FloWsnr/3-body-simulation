@@ -19,11 +19,11 @@ class NBodySystem
 public:
     NBodySystem(std::vector<Body> bodies);
 
-    const std::vector<Body>& getBodies();
+    const std::vector<Body>& getBodies() const;
     void setBodies(const std::vector<Body>& bodies);
 
-    const std::array<double, 3>& getPositionOfBody(int i);
-    const std::array<double, 3>& getVelocityOfBody(int i);
+    const std::array<double, 3>& getPositionOfBody(int i) const;
+    const std::array<double, 3>& getVelocityOfBody(int i) const;
 
     void setPositionOfBody(int i, const std::array<double, 3>& position);
     void setVelocityOfBody(int i, const std::array<double, 3>& velocity);

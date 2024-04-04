@@ -21,17 +21,17 @@ void NBodySystem::setBodies(const std::vector<Body>& bodies)
     this->bodies = bodies;
 }
 
-const std::vector<Body>& NBodySystem::getBodies()
+const std::vector<Body>& NBodySystem::getBodies() const
 {
     return bodies;
 }
 
-const std::array<double, 3>& NBodySystem::getPositionOfBody(int i)
+const std::array<double, 3>& NBodySystem::getPositionOfBody(int i) const
 {
     return bodies[i].position;
 }
 
-const std::array<double, 3>& NBodySystem::getVelocityOfBody(int i)
+const std::array<double, 3>& NBodySystem::getVelocityOfBody(int i) const
 {
     return bodies[i].velocity;
 }

@@ -13,7 +13,7 @@ Simulation::Simulation(NBodySystem n_body_system)
 {
 }
 
-double Simulation::getTime()
+const double& Simulation::getTime() const
 {
     return current_time;
 }
