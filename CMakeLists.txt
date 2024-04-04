@@ -7,7 +7,7 @@ project(3_body_problem VERSION 0.1.0
         DESCRIPTION "A simple 3 body problem simulation"
         LANGUAGES C CXX)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
