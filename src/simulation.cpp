@@ -18,6 +18,11 @@ const double& Simulation::getTime() const
     return current_time;
 }
 
+const NBodySystem& Simulation::getNBodySystem() const
+{
+    return n_body_system;
+}
+
 void Simulation::simulate_timestep(double dt)
 {
     // Simulate the movement of the bodies

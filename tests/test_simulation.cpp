@@ -24,6 +24,12 @@ TEST(SimulationTests, TestSimulateTimestep)
   Simulation test_simulation = Simulation(n_body_system);
 
   test_simulation.simulate_timestep(1.0);
+
+  std::array<double, 3> body1_pos = test_simulation.getNBodySystem().getPositionOfBody(0);
+
+  EXPECT_NE(body1_pos[0], bodies[0].position[0]);
+  EXPECT_NE(body1_pos[1], bodies[0].position[1]);
+  EXPECT_NE(body1_pos[2], bodies[0].position[2]);
 }
 
 TEST(SimulationTests, TestSimulate)
@@ -35,4 +41,10 @@ TEST(SimulationTests, TestSimulate)
   Simulation test_simulation = Simulation(n_body_system);
 
   test_simulation.simulate(1.0, 100.0);
+
+  std::array<double, 3> body1_pos = test_simulation.getNBodySystem().getPositionOfBody(0);
+
+  EXPECT_NE(body1_pos[0], bodies[0].position[0]);
+  EXPECT_NE(body1_pos[1], bodies[0].position[1]);
+  EXPECT_NE(body1_pos[2], bodies[0].position[2]);
 }

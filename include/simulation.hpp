@@ -19,6 +19,7 @@ public:
     void simulate(double dt, double end_time);
 
     const double& getTime() const;
+    const NBodySystem& getNBodySystem() const;
 
 private:
     NBodySystem n_body_system;
