@@ -16,7 +16,19 @@ TEST(SimulationTests, TestConstructor)
   EXPECT_EQ(test_simulation.getTime(), 0);
 }
 
-TEST(SimuationTests, TestConstructorWithLogger)
+TEST(SimuationTests, TestConstructorWithTerminalLogger)
+{
+  Logger logger = Logger(false);
+
+  std::vector<Body> bodies = { Body{}, Body{}, Body{} };
+  NBodySystem n_body_system = NBodySystem(bodies);
+  Simulation test_simulation = Simulation(n_body_system, logger);
+
+  // TODO: comparing pointers is bad practice, implement operator== for Logger
+  EXPECT_EQ(&logger, &test_simulation.logger);
+}
+
+TEST(SimuationTests, TestConstructorWithFileLogger)
 {
   std::string file_path = std::filesystem::temp_directory_path().string() + "/test_log.txt";
   Logger logger = Logger(file_path, false);
@@ -27,6 +39,44 @@ TEST(SimuationTests, TestConstructorWithLogger)
 
   // TODO: comparing pointers is bad practice, implement operator== for Logger
   EXPECT_EQ(&logger, &test_simulation.logger);
+}
+
+TEST(SimulationTests, TestLoggingToTerminalImplicitLogger)
+{
+  std::vector<Body> bodies = { Body{"Body1", 1, {0, 0, 0}, {0, 0, 0}},
+                                Body{"Body2", 1, {1, 1, 1}, {1, 1, 1}},
+                                Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}} };
+  NBodySystem n_body_system = NBodySystem(bodies);
+  Simulation test_simulation = Simulation(n_body_system);
+
+  test_simulation.logger.logMessage("Test message", 0);
+}
+
+TEST(SimulationTests, TestLoggingToTerminal)
+{
+  Logger logger = Logger(false);
+
+  std::vector<Body> bodies = { Body{"Body1", 1, {0, 0, 0}, {0, 0, 0}},
+                                Body{"Body2", 1, {1, 1, 1}, {1, 1, 1}},
+                                Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}} };
+  NBodySystem n_body_system = NBodySystem(bodies);
+  Simulation test_simulation = Simulation(n_body_system, logger);
+
+  test_simulation.logger.logMessage("Test message", 0);
+}
+
+TEST(SimulationTests, TestLoggingToFile)
+{
+  std::string file_path = std::filesystem::temp_directory_path().string() + "/test_log.txt";
+  Logger logger = Logger(file_path, false);
+
+  std::vector<Body> bodies = { Body{"Body1", 1, {0, 0, 0}, {0, 0, 0}},
+                                Body{"Body2", 1, {1, 1, 1}, {1, 1, 1}},
+                                Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}} };
+  NBodySystem n_body_system = NBodySystem(bodies);
+  Simulation test_simulation = Simulation(n_body_system, logger);
+
+  test_simulation.logger.logMessage("Test message", 0);
 }
 
 
