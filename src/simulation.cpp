@@ -2,6 +2,7 @@
 #include <array>
 #include <cmath>
 #include <iostream>
+#include <chrono>
 
 #include "n_body_system.hpp"
 #include "body.hpp"
@@ -74,6 +75,7 @@ void Simulation::simulate_timestep(double dt)
 
 void Simulation::simulate(double dt, double end_time, double logEvery)
 {
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     while (current_time <= end_time)
     {
         simulate_timestep(dt);
@@ -84,4 +86,8 @@ void Simulation::simulate(double dt, double end_time, double logEvery)
         }
         current_time += dt;
     }
+
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::string time = std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count());
+    logger.logMessage("Simulation took: " + time + "ms", 0);
 }
