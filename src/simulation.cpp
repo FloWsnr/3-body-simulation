@@ -10,8 +10,8 @@
 /****************************************
  * Simulation class implementation
  * **************************************/
-Simulation::Simulation(NBodySystem n_body_system, const Logger& logger)
-    : n_body_system(n_body_system), logger{ logger }
+Simulation::Simulation(NBodySystem n_body_system, const Logger& main_logger)
+    : n_body_system{ n_body_system }, logger{ main_logger }
 {
 }
 

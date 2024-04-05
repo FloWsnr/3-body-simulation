@@ -67,3 +67,23 @@ TEST(SimulationTests, TestSimulate)
   EXPECT_NE(body1_pos[1], bodies[0].position[1]);
   EXPECT_NE(body1_pos[2], bodies[0].position[2]);
 }
+
+TEST(SimulationTests, TestSimulateWithFileLogging)
+{
+  std::vector<Body> bodies = { Body{"Body1", 1, {0, 0, 0}, {0, 0, 0}},
+                                Body{"Body2", 1, {1, 1, 1}, {1, 1, 1}},
+                                Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}} };
+  NBodySystem n_body_system = NBodySystem(bodies);
+
+  std::string file_path = std::filesystem::temp_directory_path().string() + "/test_sim_log.txt";
+  Logger logger = Logger(file_path, false);
+  Simulation test_simulation = Simulation(n_body_system, &logger);
+
+  test_simulation.simulate(1.0, 100.0);
+
+  std::array<double, 3> body1_pos = test_simulation.getNBodySystem().getPositionOfBody(0);
+
+  EXPECT_NE(body1_pos[0], bodies[0].position[0]);
+  EXPECT_NE(body1_pos[1], bodies[0].position[1]);
+  EXPECT_NE(body1_pos[2], bodies[0].position[2]);
+}

@@ -21,7 +21,8 @@ Logger::Logger(const std::string& file, bool verbose)
     // pointer points at file stream
     outputStream = fileStream.get();
 
-    (*outputStream) << "Simulation log" << "\n";
+    // Create header line in log file
+    logHeader();
 }
 
 void Logger::logHeader() const
@@ -30,7 +31,7 @@ void Logger::logHeader() const
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
     time_t now_c = std::chrono::system_clock::to_time_t(now);
 
-    (*outputStream) << "N body simulation - " << ctime(&now_c) << "\n";
+    (*outputStream) << "N body simulation - " << ctime(&now_c);
     (*outputStream) << "-------------------------------------" << "\n";
 }
 
