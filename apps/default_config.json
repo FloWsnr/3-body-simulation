@@ -1,10 +1,11 @@
 {
     "Logging": {
-        "File": "/home/flwi/Coding/3-body-simulation/log.txt"
+        "File": "/home/flwi/Coding/3-body-simulation/log.txt",
+        "LogEvery": 1
     },
     "Simulation": {
         "Timestep": 1,
-        "Duration": 100000
+        "Duration": 10
     },
     "Bodies": {
         "Body1": {

@@ -72,13 +72,12 @@ void Simulation::simulate_timestep(double dt)
     }
 }
 
-void Simulation::simulate(double dt, double end_time)
+void Simulation::simulate(double dt, double end_time, double logEvery)
 {
-    int print_every = 100;
     while (current_time <= end_time)
     {
         simulate_timestep(dt);
-        if (std::fmod(current_time, print_every) == 0)
+        if (std::fmod(current_time, logEvery) == 0)
         {
             logger.logMessage("Time: " + std::to_string(current_time), 0);
             logger.logNBodySystem(n_body_system, 1);

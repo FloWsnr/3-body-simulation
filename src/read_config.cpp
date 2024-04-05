@@ -26,6 +26,12 @@ std::vector<Body> ConfigReader::getBodies()
     return bodies;
 }
 
+double ConfigReader::getLogEvery()
+{
+    return this->data.at("Logging").at("LogEvery");
+}
+
+
 std::string ConfigReader::getLogFile()
 {
     return this->data.at("Logging").at("File");

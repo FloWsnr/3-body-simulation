@@ -15,6 +15,7 @@ public:
 
     std::vector<Body> getBodies();
     std::string getLogFile();
+    double getLogEvery();
     double getTimestep();
     double getDuration();
 

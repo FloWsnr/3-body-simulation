@@ -17,7 +17,7 @@ public:
     Simulation(NBodySystem n_body_system, const Logger& logger);
 
     void simulate_timestep(double dt);
-    void simulate(double dt, double end_time);
+    void simulate(double dt, double end_time, double logEvery = 1.0);
 
     const double& getTime() const;
     const NBodySystem& getNBodySystem() const;
