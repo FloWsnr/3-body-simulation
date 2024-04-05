@@ -33,7 +33,8 @@ int main(int argc, char* argv[])
     logger.logMessage("Starting N body simulation", 0);
     logger.logMessage("--------------------------", 0);
 
-    Simulation sim(n_body_system, &logger);
+    // WHY CANT I PASS A REFERENCE TO THE LOGGER HERE? If I do, I the logger gets copied instead of referenced
+    Simulation sim(n_body_system, logger);
 
     double duration = config.getDuration();
     double timestep = config.getTimestep();
