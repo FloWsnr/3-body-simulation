@@ -13,6 +13,7 @@ public:
     Logger(bool verbose = false);
     Logger(const std::string& file, bool verbose = false);
 
+    void logHeader() const;
     void logMessage(const std::string& message, int level = 0) const;
     void logBody(const Body& body, int level = 0) const;
     void logNBodySystem(const NBodySystem& n_body_system, int level = 0) const;

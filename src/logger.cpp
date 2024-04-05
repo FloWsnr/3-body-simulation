@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <chrono>
 
 #include "logger.hpp"
 #include "body.hpp"
@@ -17,15 +18,26 @@ Logger::Logger(const std::string& file, bool verbose)
 {
 
     fileStream = std::make_unique<std::ofstream>(file);
-
     // pointer points at file stream
     outputStream = fileStream.get();
+
+    (*outputStream) << "Simulation log" << "\n";
+}
+
+void Logger::logHeader() const
+{
+    // Get current time
+    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+    time_t now_c = std::chrono::system_clock::to_time_t(now);
+
+    (*outputStream) << "N body simulation - " << ctime(&now_c) << "\n";
+    (*outputStream) << "-------------------------------------" << "\n";
 }
 
 void Logger::logMessage(const std::string& message, int level) const
 {
     std::string indent{ std::string(level, ' ') };
-    *outputStream << indent << message << "\n";
+    (*outputStream) << indent << message << "\n";
 }
 
 void Logger::logBody(const Body& body, int level) const
@@ -33,11 +45,11 @@ void Logger::logBody(const Body& body, int level) const
     std::string indent{ std::string(level, ' ') };
 
 
-    *outputStream << indent << "Body: " << body.name << "\n";
-    *outputStream << indent << "  Mass: " << body.mass << "\n";
-    *outputStream << indent << "  Position: ";
+    (*outputStream) << indent << "Body: " << body.name << "\n";
+    (*outputStream) << indent << "  Mass: " << body.mass << "\n";
+    (*outputStream) << indent << "  Position: ";
     logArray(body.position);
-    *outputStream << indent << "  Velocity: ";
+    (*outputStream) << indent << "  Velocity: ";
     logArray(body.velocity);
 }
 
@@ -45,18 +57,18 @@ void Logger::logBody(const Body& body, int level) const
 template <typename T>
 void Logger::logArray(const T& array) const
 {
-    *outputStream << "[";
+    (*outputStream) << "[";
     for (auto& element : array)
     {
-        *outputStream << element;
+        (*outputStream) << element;
 
         // Print comma if not last element
         if (&element != &array.back())
         {
-            *outputStream << ", ";
+            (*outputStream) << ", ";
         }
     }
-    *outputStream << "]" << "\n";
+    (*outputStream) << "]" << "\n";
 }
 
 
