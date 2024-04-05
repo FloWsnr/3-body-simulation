@@ -14,7 +14,6 @@
 class Simulation
 {
 public:
-    Simulation(NBodySystem n_body_system);
     Simulation(NBodySystem n_body_system, const Logger& logger);
 
     void simulate_timestep(double dt);
@@ -23,8 +22,8 @@ public:
     const double& getTime() const;
     const NBodySystem& getNBodySystem() const;
 
-    const Logger& logger;
 private:
+    const Logger& logger;
     NBodySystem n_body_system;
     double current_time = 0.0;
 };

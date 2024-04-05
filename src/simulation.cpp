@@ -1,5 +1,7 @@
 #include <vector>
 #include <array>
+#include <cmath>
+#include <iostream>
 
 #include "n_body_system.hpp"
 #include "body.hpp"
@@ -8,13 +10,8 @@
 /****************************************
  * Simulation class implementation
  * **************************************/
-Simulation::Simulation(NBodySystem n_body_system)
-    : n_body_system(n_body_system), logger(Logger())
-{
-}
-
 Simulation::Simulation(NBodySystem n_body_system, const Logger& logger)
-    : n_body_system(n_body_system), logger(logger)
+    : n_body_system(n_body_system), logger{ logger }
 {
 }
 
@@ -77,9 +74,15 @@ void Simulation::simulate_timestep(double dt)
 
 void Simulation::simulate(double dt, double end_time)
 {
+    int print_every = 100;
     while (current_time <= end_time)
     {
         simulate_timestep(dt);
+        if (std::fmod(current_time, print_every) == 0)
+        {
+            logger.logMessage("Time: " + std::to_string(current_time), 0);
+            logger.logNBodySystem(n_body_system, 1);
+        }
         current_time += dt;
     }
 }
