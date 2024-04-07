@@ -6,31 +6,8 @@
 #include "body.hpp"
 #include "n_body_system.hpp"
 #include "simulation.hpp"
-
-// TEST(SimuationTests, TestConstructorWithTerminalLogger)
-// {
-//   Logger logger = Logger(false);
-
-//   std::vector<Body> bodies = { Body{}, Body{}, Body{} };
-//   NBodySystem n_body_system = NBodySystem(bodies);
-//   Simulation test_simulation = Simulation(n_body_system, &logger);
-
-//   // TODO: comparing pointers is bad practice, implement operator== for Logger
-//   EXPECT_EQ(&logger, &test_simulation.logger);
-// }
-
-// TEST(SimuationTests, TestConstructorWithFileLogger)
-// {
-//   std::string file_path = std::filesystem::temp_directory_path().string() + "/test_log.txt";
-//   Logger logger = Logger(file_path, false);
-
-//   std::vector<Body> bodies = { Body{}, Body{}, Body{} };
-//   NBodySystem n_body_system = NBodySystem(bodies);
-//   Simulation test_simulation = Simulation(n_body_system, &logger);
-
-//   // TODO: comparing pointers is bad practice, implement operator== for Logger
-//   EXPECT_EQ(&logger, &test_simulation.logger);
-// }
+#include "logger.hpp"
+#include "data_writer.hpp"
 
 TEST(SimulationTests, TestSimulateTimestep)
 {
@@ -38,8 +15,12 @@ TEST(SimulationTests, TestSimulateTimestep)
                                 Body{"Body2", 1, {1, 1, 1}, {1, 1, 1}},
                                 Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}} };
   NBodySystem n_body_system = NBodySystem(bodies);
-  Logger logger = Logger(false);
-  Simulation test_simulation = Simulation(n_body_system, &logger);
+  Logger logger = Logger();
+
+  std::string data_path = std::filesystem::temp_directory_path().string() + "/test_sim_log.txt";
+  DataWriter data_writer = DataWriter(data_path);
+
+  Simulation test_simulation = Simulation(n_body_system, data_writer, logger);
 
   test_simulation.simulate_timestep(1.0);
 
@@ -56,8 +37,12 @@ TEST(SimulationTests, TestSimulate)
                                 Body{"Body2", 1, {1, 1, 1}, {1, 1, 1}},
                                 Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}} };
   NBodySystem n_body_system = NBodySystem(bodies);
-  Logger logger = Logger(false);
-  Simulation test_simulation = Simulation(n_body_system, &logger);
+  Logger logger = Logger();
+
+  std::string data_path = std::filesystem::temp_directory_path().string() + "/test_sim_log.txt";
+  DataWriter data_writer = DataWriter(data_path);
+
+  Simulation test_simulation = Simulation(n_body_system, data_writer, logger);
 
   test_simulation.simulate(1.0, 100.0);
 
@@ -75,9 +60,14 @@ TEST(SimulationTests, TestSimulateWithFileLogging)
                                 Body{"Body3", 1, {2, 2, 2}, {2, 2, 2}} };
   NBodySystem n_body_system = NBodySystem(bodies);
 
-  std::string file_path = std::filesystem::temp_directory_path().string() + "/test_sim_log.txt";
-  Logger logger = Logger(file_path, false);
-  Simulation test_simulation = Simulation(n_body_system, &logger);
+  std::string log_path = std::filesystem::temp_directory_path().string() + "/test_sim_log.txt";
+  Logger logger = Logger(log_path);
+
+  std::string data_path = std::filesystem::temp_directory_path().string() + "/test_sim_data.csv";
+  DataWriter data_writer = DataWriter(data_path);
+
+
+  Simulation test_simulation = Simulation(n_body_system, data_writer, logger);
 
   test_simulation.simulate(1.0, 100.0);
 

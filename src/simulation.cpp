@@ -11,8 +11,8 @@
 /****************************************
  * Simulation class implementation
  * **************************************/
-Simulation::Simulation(NBodySystem n_body_system, const Logger& main_logger)
-    : n_body_system{ n_body_system }, logger{ main_logger }
+Simulation::Simulation(NBodySystem _n_body_system, DataWriter& _data_writer, Logger& _logger)
+    : n_body_system{ _n_body_system }, dataWriter{ _data_writer }, logger{ _logger }
 {
 }
 
@@ -73,21 +73,38 @@ void Simulation::simulate_timestep(double dt)
     }
 }
 
-void Simulation::simulate(double dt, double end_time, double logEvery)
+void Simulation::simulate(
+    double dt,
+    double end_time,
+    double logEvery,
+    double dataEvery)
 {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     while (current_time <= end_time)
     {
+        outputData(current_time, logEvery, dataEvery);
         simulate_timestep(dt);
-        if (std::fmod(current_time, logEvery) == 0)
-        {
-            logger.logMessage("Time: " + std::to_string(current_time), 0);
-            logger.logNBodySystem(n_body_system, 1);
-        }
         current_time += dt;
     }
 
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::string time = std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count());
     logger.logMessage("Simulation took: " + time + "ms", 0);
+}
+
+void Simulation::outputData(
+    const double& current_time,
+    const double& logEvery,
+    const double& dataEvery) const
+{
+    if (std::fmod(current_time, logEvery) == 0)
+    {
+        logger.logMessage("Time: " + std::to_string(current_time), 0);
+        logger.logNBodySystem(n_body_system, 1);
+    }
+
+    if (std::fmod(current_time, dataEvery) == 0)
+    {
+        dataWriter.writeTimeStep(current_time, n_body_system);
+    }
 }
