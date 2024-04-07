@@ -1,6 +1,8 @@
+#pragma once
+
 #include <fstream>
 #include <string>
-#include <vector>
+#include <sstream>
 
 #include "body.hpp"
 #include "n_body_system.hpp"
@@ -21,8 +23,7 @@ class DataWriter
 public:
     DataWriter(const std::string& file);
     void writeTimeStep(double time, const NBodySystem& n_body_system);
-
 private:
     std::ofstream fileStream;
-    void writeBody(const Body& body, std::stringstream& current_line);
+    void writeBody(const Body& body, std::stringstream& current_line) const;
 };

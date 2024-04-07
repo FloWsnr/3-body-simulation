@@ -2,6 +2,8 @@
 #include <sstream>
 
 #include "data_writer.hpp"
+#include "n_body_system.hpp"
+#include "body.hpp"
 
 DataWriter::DataWriter(const std::string& file)
     : fileStream{ file }
@@ -9,7 +11,9 @@ DataWriter::DataWriter(const std::string& file)
 }
 
 // Write the time step with all body positions to the file
-void DataWriter::writeTimeStep(double time, const NBodySystem& n_body_system)
+void DataWriter::writeTimeStep(
+    double time,
+    const NBodySystem& n_body_system)
 {
     for (const Body& body : n_body_system.getBodies())
     {
@@ -23,7 +27,7 @@ void DataWriter::writeTimeStep(double time, const NBodySystem& n_body_system)
     }
 }
 
-void DataWriter::writeBody(const Body& body, std::stringstream& current_line)
+void DataWriter::writeBody(const Body& body, std::stringstream& current_line) const
 {
     current_line << ", " << body.name;
     current_line << ", " << body.mass;
