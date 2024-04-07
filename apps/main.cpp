@@ -7,6 +7,7 @@
 #include "simulation.hpp"
 #include "com_parser.hpp"
 #include "logger.hpp"
+#include "data_writer.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -15,33 +16,40 @@ int main(int argc, char* argv[])
     Arguments arguments = com_parser.parse();
 
     // Read config file
-    ConfigReader config(arguments.config_path);
+    ConfigReader configReader(arguments.config_path);
+    Configuration config = configReader.loadConfiguration();
 
     // Create logger
-    const std::string log_file = config.getLogFile();
-    const double logEvery = config.getLogEvery();
-    Logger logger = Logger(log_file, arguments.verbose);
+    Logger logger = Logger(config.log_file);
+    // Create DataWriter
+    DataWriter data_writer = DataWriter(config.data_file);
 
-    std::vector<Body> bodies = config.getBodies();
+    /***************************************************
+    Start the actual simulation
+    ***************************************************/
+
+    std::vector<Body> bodies = config.bodies;
     NBodySystem n_body_system(bodies);
 
-    logger.logMessage("Initial configuration", 0);
-    logger.logMessage("--------------------------", 0);
-    logger.logNBodySystem(n_body_system, 1);
+    if (arguments.verbose)
+    {
+        logger.logMessage("Initial configuration", 0);
+        logger.logMessage("--------------------------", 0);
+        logger.logNBodySystem(n_body_system, 1);
+    }
+    // WHY CANT I PASS A REFERENCE TO THE LOGGER HERE? If I do, I the logger gets copied instead of referenced
+    // Initialize simulation
+    Simulation sim(n_body_system, data_writer, logger);
 
     logger.logMessage("--------------------------", 0);
     logger.logMessage("Starting N body simulation", 0);
     logger.logMessage("--------------------------", 0);
 
-    // WHY CANT I PASS A REFERENCE TO THE LOGGER HERE? If I do, I the logger gets copied instead of referenced
-    Simulation sim(n_body_system, logger);
-
-    double duration = config.getDuration();
-    double timestep = config.getTimestep();
 
     logger.logMessage("Start simulation:", 1);
-    sim.simulate(timestep, duration, logEvery);
+    sim.simulate(config.timestep, config.duration, config.log_every, config.write_every);
 
-    logger.logMessage("Simulation complete", 1);
+    logger.logMessage("--------------------------", 0);
+    logger.logMessage("Simulation complete", 0);
     return 0;
 };
