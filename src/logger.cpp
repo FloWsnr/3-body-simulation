@@ -6,15 +6,13 @@
 #include "body.hpp"
 #include "n_body_system.hpp"
 
-Logger::Logger(bool verbose)
-    : verbose{ verbose }
+Logger::Logger()
 {
     // pointer points at std::cout
     outputStream = &std::cout;
 }
 
-Logger::Logger(const std::string& file, bool verbose)
-    : verbose{ verbose }
+Logger::Logger(const std::string& file)
 {
 
     fileStream = std::make_unique<std::ofstream>(file);

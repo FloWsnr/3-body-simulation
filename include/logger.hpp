@@ -10,8 +10,8 @@
 class Logger
 {
 public:
-    Logger(bool verbose = false);
-    Logger(const std::string& file, bool verbose = false);
+    Logger();
+    Logger(const std::string& file);
 
     void logHeader() const;
     void logMessage(const std::string& message, int level = 0) const;
@@ -21,11 +21,8 @@ public:
     template <typename T>
     void logArray(const T& array) const;
 private:
-    bool verbose{ false };
-
     // Pointer to output stream, no ownership since std::cout is not owned
     std::ostream* outputStream;
-
     // Unique pointer to file stream, ownership since file stream is owned
     std::unique_ptr<std::ofstream> fileStream;
 };
