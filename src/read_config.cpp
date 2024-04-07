@@ -9,6 +9,19 @@ ConfigReader::ConfigReader(const std::string& file_path)
     this->data = nlohmann::json::parse(file);
 }
 
+Configuration ConfigReader::loadConfiguration()
+{
+    Configuration config;
+    config.log_file = this->getLogFile();
+    config.log_every = this->getLogEvery();
+    config.timestep = this->getTimestep();
+    config.duration = this->getDuration();
+    config.data_file = this->getDataFile();
+    config.write_every = this->getWriteEvery();
+    config.bodies = this->getBodies();
+    return config;
+}
+
 const nlohmann::json& ConfigReader::getData()
 {
     return this->data;
@@ -26,7 +39,7 @@ std::vector<Body> ConfigReader::getBodies()
     return bodies;
 }
 
-double ConfigReader::getLogEvery()
+int ConfigReader::getLogEvery()
 {
     return this->data.at("Logging").at("LogEvery");
 }
@@ -34,7 +47,7 @@ double ConfigReader::getLogEvery()
 
 std::string ConfigReader::getLogFile()
 {
-    return this->data.at("Logging").at("File");
+    return this->data.at("Logging").at("LogFile");
 }
 
 double ConfigReader::getTimestep()
@@ -45,4 +58,14 @@ double ConfigReader::getTimestep()
 double ConfigReader::getDuration()
 {
     return this->data.at("Simulation").at("Duration");
+}
+
+std::string ConfigReader::getDataFile()
+{
+    return this->data.at("Simulation").at("DataFile");
+}
+
+int ConfigReader::getWriteEvery()
+{
+    return this->data.at("Simulation").at("WriteEvery");
 }
