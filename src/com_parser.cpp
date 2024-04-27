@@ -10,7 +10,7 @@ ComParser::ComParser(int num_args, char* args[])
         this->printConfigMissing();
     }
 
-    for (int i = 0; i < num_args; ++i)
+    for (auto i = 0; i < num_args; ++i)
     {
         this->args.push_back(args[i]);
     }
@@ -59,18 +59,21 @@ void ComParser::printHelp()
 
 void ComParser::parseConfigPath()
 {
-    for (int i = 0; i < this->args.size(); ++i)
-    {
-        if (this->args[i] == "-c" || this->args[i] == "--config")
-        {
-            if (i + 1 < this->args.size())
-            {
-                this->arguments.config_path = this->args[i + 1];
-            }
-            else
-            {
-                this->printConfigMissing();
-            }
+    auto hasConfigArg{
+        [](const std::string& arg) {
+        return arg == "-c" || arg == "--config";
+    }
+    };
+    auto it = std::find_if(this->args.begin(), this->args.end(), hasConfigArg);
+    if (it != this->args.end()) {
+        if (it + 1 < this->args.end()) {
+            this->arguments.config_path = *(it + 1);
         }
+        else {
+            this->printConfigMissing();
+        }
+    }
+    else {
+        this->printConfigMissing();
     }
 }
