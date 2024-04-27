@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
     Configuration config = configReader.loadConfiguration();
 
     // Create logger
-    Logger logger = Logger(config.log_file);
+    Logger logger = Logger();
     // Create DataWriter
     DataWriter data_writer = DataWriter(config.data_file);
 
@@ -37,8 +37,6 @@ int main(int argc, char* argv[])
         logger.logMessage("--------------------------", 0);
         logger.logNBodySystem(n_body_system, 1);
     }
-    // WHY CANT I PASS A REFERENCE TO THE LOGGER HERE? If I do, I the logger gets copied instead of referenced
-    // Initialize simulation
     Simulation sim(n_body_system, data_writer, logger);
 
     logger.logMessage("--------------------------", 0);

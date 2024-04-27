@@ -30,14 +30,14 @@ void Simulation::simulate_timestep(double dt)
 {
     // Simulate the movement of the bodies
     const std::vector<Body>& bodies = n_body_system.getBodies();
+    std::array<double, 3> total_acceleration = { 0, 0, 0 };
 
     // iterate over all bodies
-    for (int i = 0; i < bodies.size(); i++)
+    for (long unsigned int i = 0; i < bodies.size(); ++i)
     {
-        std::array<double, 3> total_acceleration = { 0, 0, 0 };
-
+        total_acceleration = { 0, 0, 0 };
         // iterate over all other bodies
-        for (int j = 0; j < bodies.size(); j++)
+        for (long unsigned int j = 0; j < bodies.size(); ++j)
         {
             if (i != j)
             {
@@ -61,7 +61,7 @@ void Simulation::simulate_timestep(double dt)
     }
 
     // Update the position of the bodies
-    for (int i = 0; i < bodies.size(); i++)
+    for (long unsigned int i = 0; i < bodies.size(); i++)
     {
         std::array<double, 3> position = n_body_system.getPositionOfBody(i);
         std::array<double, 3> velocity = n_body_system.getVelocityOfBody(i);

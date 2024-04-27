@@ -77,7 +77,7 @@ std::array<double, 3> NBodySystem::calcAcceleration(const Body& body1, const Bod
 
     // Calculate the gravitational force between two masses
     constexpr double G = 6.67430e-11; // Gravitational constant
-    const double& mass1 = body1.mass;
+    // const double& mass1 = body1.mass;
     const double& mass2 = body2.mass;
 
     std::array<double, 3> distance_vector = calcDistanceVector(body1, body2);
