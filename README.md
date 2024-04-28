@@ -11,6 +11,10 @@ Install necessary packages
 sudo apt-get install build-essential cmake
 ```
 
+Install the python requirements
+```bash
+poetry install
+```
 
 ## Usage
 A json config is required with the following format:
