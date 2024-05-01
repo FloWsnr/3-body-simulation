@@ -1,6 +1,13 @@
 .vscode
 log.txt
 data.csv
+python/n_body_vis/data
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
 
 # Prerequisites
 *.d
