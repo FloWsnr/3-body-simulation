@@ -1,13 +1,13 @@
 {
     "Logging": {
         "LogFile": "/home/flwi/Coding/3-body-simulation/log.txt",
-        "LogEvery": 1000
+        "LogEvery": 86400
     },
     "Simulation": {
         "Timestep": 1,
-        "Duration": 1000000,
+        "Duration": 1000000000,
         "DataFile": "/home/flwi/Coding/3-body-simulation/data.csv",
-        "WriteEvery": 1000
+        "WriteEvery": 86400
     },
     "Bodies": {
         "Body1": {
