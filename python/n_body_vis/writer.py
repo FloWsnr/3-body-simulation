@@ -61,4 +61,4 @@ class VTIWriter:
 
     def _save_pvd(self) -> None:
         tree = ET.ElementTree(self.pvd_root)
-        tree.write(self.pvd_file)
+        tree.write(self.pvd_file, xml_declaration=True, encoding="utf-8")

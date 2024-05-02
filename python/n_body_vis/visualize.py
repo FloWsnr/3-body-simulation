@@ -7,7 +7,7 @@ from writer import VTIWriter
 
 def load_data(filename: Path | str) -> pd.DataFrame:
     header = ["t", "name", "mass", "x", "y", "z", "v_x", "v_y", "v_z"]
-    data = pd.read_csv(filename)
+    data = pd.read_csv(filename, header=None)
     data.columns = header
     return data
 
@@ -36,7 +36,7 @@ if __name__ == "__main__":
     vti_writer = VTIWriter(directory)
 
     for timestep, t_data in data:
-        name = f"{int(timestep):010d}_data.vtk"
+        name = f"{int(timestep):010d}_data.vtp"
         dict_data = get_data_as_dict(t_data)
         vti_writer.write(dict_data, name, timestep=timestep)
     vti_writer.close()
