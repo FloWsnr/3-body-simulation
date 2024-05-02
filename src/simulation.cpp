@@ -82,7 +82,7 @@ void Simulation::simulate(
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     while (current_time <= end_time)
     {
-        outputData(current_time, logEvery, dataEvery);
+        outputData(current_time, end_time, logEvery, dataEvery);
         simulate_timestep(dt);
         current_time += dt;
     }
@@ -94,13 +94,15 @@ void Simulation::simulate(
 
 void Simulation::outputData(
     const double& current_time,
+    const double& end_time,
     const double& logEvery,
     const double& dataEvery) const
 {
     if (std::fmod(current_time, logEvery) == 0)
     {
-        logger.logMessage("Time: " + std::to_string(current_time), 0);
-        logger.logNBodySystem(n_body_system, 1);
+        double progress = current_time / end_time * 100;
+        logger.logMessage("Progress: " + std::to_string(progress) + "%", 0);
+        //logger.logNBodySystem(n_body_system, 1);
     }
 
     if (std::fmod(current_time, dataEvery) == 0)

@@ -29,5 +29,5 @@ private:
     Logger& logger;
     double current_time = 0.0;
 
-    void outputData(const double& current_time, const double& logEvery, const double& dataEvery) const;
+    void outputData(const double& current_time, const double& end_time, const double& logEvery, const double& dataEvery) const;
 };
