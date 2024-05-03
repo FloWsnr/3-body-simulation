@@ -83,7 +83,7 @@ std::array<double, 3> NBodySystem::calcAcceleration(const Body& body1, const Bod
     std::array<double, 3> distance_vector = calcDistanceVector(body1, body2);
     double distance_magnitude = calcDistanceMagnitude(distance_vector);
 
-    double acc = G * mass2 / std::pow(distance_magnitude, 3);
+    double acc = -G * mass2 / std::pow(distance_magnitude, 3);
     for (int i = 0; i < 3; i++)
     {
         acceleration[i] = acc * distance_vector[i];
