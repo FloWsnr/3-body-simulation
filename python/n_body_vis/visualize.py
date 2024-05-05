@@ -1,7 +1,8 @@
 from pathlib import Path
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+import matplotlib.animation as animation
 
 
 from writer import VTIWriter
@@ -43,13 +44,6 @@ class VTP_Vis(Visualization):
         self.vti_writer.close()
 
 
-from pathlib import Path
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-
-
 class Matplotlib_Vis(Visualization):
     def __init__(self, csv_file: Path | str):
         super().__init__(csv_file)
@@ -57,20 +51,10 @@ class Matplotlib_Vis(Visualization):
         self.fig = plt.figure(figsize=(10, 10))
         self.ax = self.fig.add_subplot(projection="3d")
         # limits of the axis (x, y, z)
-        self.ax.set_xlim3d([-10e12, 10e12])
-        self.ax.set_ylim3d([-10e12, 10e12])
-        self.ax.set_zlim3d([-10e12, 10e12])
+        self.ax.set_xlim3d([-3e11, 3e11])
+        self.ax.set_ylim3d([-3e11, 3e11])
+        self.ax.set_zlim3d([-10e10, 10e10])
         self.scatter = self.ax.scatter([], [], [])
-
-        # Reindex the time to 0,1,2,3 ... n instead of 0,1000,2000,3000 ... n*1000
-        self.data["t"] = self.data["t"] // 86000
-
-        # Normalize the mass with logaritmic scale
-        self.data["mass"] = self.data["mass"].apply(lambda x: np.log(x))
-        # Scale to 1-100
-        self.data["mass"] = (self.data["mass"] - self.data["mass"].min()) / (
-            self.data["mass"].max() - self.data["mass"].min()
-        ) * 99 + 1
 
         self.data_groups = self._group_by_time()
 
@@ -99,11 +83,21 @@ class Matplotlib_Vis(Visualization):
         self.scatter._offsets3d = (x, y, z)
         self.scatter.set_sizes(mass)
         self.scatter.set_facecolor(self.colors)
+        self.scatter.set_edgecolor("black")
+        self.scatter.set_alpha(0.9)
         self.ax.set_title(f"Time: {frame}")
 
     def animate(self):
         frames = self.data_groups.groups.keys()
-        ani = FuncAnimation(self.fig, self.update_scatter, frames=frames, interval=10)
+        ani = animation.FuncAnimation(
+            self.fig, self.update_scatter, frames=frames, interval=10
+        )
+
+        # To save the animation using Pillow as a gif
+        writer = animation.PillowWriter(
+            fps=120, metadata=dict(artist="Me"), bitrate=1800
+        )
+        ani.save("scatter.gif", writer=writer)
         plt.show()
 
 
