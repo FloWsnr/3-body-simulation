@@ -8,12 +8,13 @@ These positions can be plotted with the python script provided.
 
 The following gif shows the solar system simulation with the provided config file. The code
 is sufficiently fast to simulate the solar system (10 bodies) for 1 billion seconds in around 5 min.
-![Solar System](images/solar_system.gif | width=100)
 
+<img src="./images/solar_system.gif" width="500" />
 
 Now, let's see what happens when we add a rogue sun to the solar system. The second sun has the same mass as
 the original sun and quickly disrupts the orbits of the planets.
-![Rogue Sun](images/two_suns.gif | width=100)
+
+<img src="./images/two_suns.gif" width="500" />
 
 
 ## Installation
